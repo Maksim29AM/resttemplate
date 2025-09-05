@@ -1,6 +1,7 @@
 package cam.example.app.resttemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,8 +11,6 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class ResttemplateApplication {
 
-    //    @Autowired
-//    DogProxy dog;
     @Autowired
     JokeProxy jokeProxy;
 
@@ -19,19 +18,20 @@ public class ResttemplateApplication {
         SpringApplication.run(ResttemplateApplication.class, args);
     }
 
-//    @EventListener(ApplicationStartedEvent.class)
-//    public void makeRequestToRandomDog() {
-//        String response = dog.makeDogRequest(5);
-//        System.out.println(response);
-//    }
-
     @EventListener(ApplicationStartedEvent.class)
     public void makeRequestToJoke() throws JsonProcessingException {
-        JokeResponse response = jokeProxy.makeJokeRequest("any");
+        String json = jokeProxy.makeJokeRequest("any");
 
-        System.out.println("Category: " + response.category());
+        if (json != null) {
+            JokeResponse jokeResponse = mapJsonToJokeResponse(json);
+            System.out.println("Category: " + jokeResponse.category());
+            String joke = jokeResponse.type().equals("twopart") ? "Setup: " + jokeResponse.setup() + "\nDelivery: " + jokeResponse.delivery() : "Joke: " + jokeResponse.joke();
+            System.out.println(joke);
+        }
+    }
 
-        String joke = response.type().equals("twopart") ? "Setup: " + response.setup() + "\nDelivery: " + response.delivery() : "Joke: " + response.joke();
-        System.out.println(joke);
+    private JokeResponse mapJsonToJokeResponse(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, JokeResponse.class);
     }
 }
