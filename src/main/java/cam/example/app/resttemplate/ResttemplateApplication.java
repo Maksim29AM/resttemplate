@@ -9,17 +9,25 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class ResttemplateApplication {
 
+    //    @Autowired
+//    DogProxy dog;
     @Autowired
-    DogProxy dog;
+    JokeProxy jokeProxy;
 
     public static void main(String[] args) {
         SpringApplication.run(ResttemplateApplication.class, args);
     }
 
+//    @EventListener(ApplicationStartedEvent.class)
+//    public void makeRequestToRandomDog() {
+//        String response = dog.makeDogRequest(5);
+//        System.out.println(response);
+//    }
 
     @EventListener(ApplicationStartedEvent.class)
-    public void makeRequestToRandomDog() {
-        String response = dog.makeDogRequest(5);
+    public void makeRequestToJoke() {
+        String response = jokeProxy.makeJokeRequest("any");
         System.out.println(response);
     }
+
 }
