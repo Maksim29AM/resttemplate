@@ -1,5 +1,7 @@
 package cam.example.app.resttemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -17,14 +19,16 @@ public class JokeProxy {
     @Value("${joke.service.url}")
     String url;
 
-    public String makeJokeRequest(String category) {
+    public JokeResponse makeJokeRequest(String category) throws JsonProcessingException {
         String uri = url + "/joke/" + category;
-        ResponseEntity<String> exchange = restTemplate.exchange(
+        ResponseEntity<String> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
                 null,
                 String.class
         );
-        return exchange.getBody();
+        String json = response.getBody();
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, JokeResponse.class);
     }
 }
