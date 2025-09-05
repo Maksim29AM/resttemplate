@@ -1,6 +1,7 @@
 package cam.example.app.resttemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,12 @@ public class DogProxy {
     @Autowired
     RestTemplate restTemplate;
 
+    @Value("${dog.service.url}")
+    String url;
+
     //    https://dog.ceo/api/breed/hound/images/random/3
     public String makeDogRequest(Integer limit) {
-        String uri = "https://dog.ceo/api/breed/hound/images/random/" + limit;
+        String uri = url+"/api/breed/hound/images/random/" + limit;
         ResponseEntity<String> exchange = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
