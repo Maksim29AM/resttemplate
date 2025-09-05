@@ -21,7 +21,7 @@ public class JokeProxy {
     @Value("${joke.service.url}")
     String url;
 
-    public String makeJokeRequest(String category) throws JsonProcessingException {
+    public String makeJokeRequest(String category){
         String uri = url + "/joke/" + category;
         return makeRequest(uri);
     }
