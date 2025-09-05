@@ -1,5 +1,6 @@
 package cam.example.app.resttemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,9 +26,12 @@ public class ResttemplateApplication {
 //    }
 
     @EventListener(ApplicationStartedEvent.class)
-    public void makeRequestToJoke() {
-        String response = jokeProxy.makeJokeRequest("any");
-        System.out.println(response);
-    }
+    public void makeRequestToJoke() throws JsonProcessingException {
+        JokeResponse response = jokeProxy.makeJokeRequest("any");
 
+        System.out.println("Category: " + response.category());
+
+        String joke = response.type().equals("twopart") ? "Setup: " + response.setup() + "\nDelivery: " + response.delivery() : "Joke: " + response.joke();
+        System.out.println(joke);
+    }
 }
