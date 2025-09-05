@@ -1,7 +1,6 @@
 package cam.example.app.resttemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -11,17 +10,20 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import static org.apache.logging.log4j.LogManager.getLogger;
+
 @Component
 public class JokeProxy {
 
     @Autowired
     RestTemplate restTemplate;
 
+    Logger log = getLogger(JokeProxy.class);
 
     @Value("${joke.service.url}")
     String url;
 
-    public String makeJokeRequest(String category){
+    public String makeJokeRequest(String category) {
         String uri = url + "/joke/" + category;
         return makeRequest(uri);
     }
@@ -36,9 +38,9 @@ public class JokeProxy {
             );
             return response.getBody();
         } catch (RestClientResponseException exceptions) {
-            System.out.println(exceptions.getStatusText() + " " + exceptions.getStatusCode().value());
+            log.error("{} {}", exceptions.getStatusText(), exceptions.getStatusCode().value());
         } catch (RestClientException exception) {
-            System.out.println(exception.getMessage());
+            log.error(exception.getMessage());
         }
         return null;
     }
