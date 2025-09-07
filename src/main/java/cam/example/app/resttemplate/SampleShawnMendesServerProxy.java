@@ -36,7 +36,7 @@ public class SampleShawnMendesServerProxy {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("requestId", "qwe");
-        SampleShawnMendesRequest requestBody = new SampleShawnMendesRequest("MySong!@!@!!");
+        SampleShawnMendesRequest requestBody = new SampleShawnMendesRequest("jollkee dota");
         HttpEntity<SampleShawnMendesRequest> entity = new HttpEntity<>(requestBody, httpHeaders);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
@@ -66,6 +66,32 @@ public class SampleShawnMendesServerProxy {
             ResponseEntity<String> response = restTemplate.exchange(
                     builder.build().toUri(),
                     HttpMethod.GET,
+                    null,
+                    String.class
+            );
+            return response.getBody();
+        } catch (RestClientResponseException exceptions) {
+            log.error("{} {}", exceptions.getStatusText(), exceptions.getStatusCode().value());
+        } catch (RestClientException exception) {
+            log.error(exception.getMessage());
+        }
+        return null;
+    }
+
+    public String makeDeleteRequest(String id) {
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .port(port)
+                .host(url)
+                .path("/shawn/songs")
+                .queryParam("id",id);
+
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    builder.build().toUri(),
+                    HttpMethod.DELETE,
                     null,
                     String.class
             );

@@ -31,14 +31,20 @@ public class ResttemplateApplication {
 //            System.out.println(joke);
 //        }
 
-        String postJsonSampleShawnMendesServer = sampleShawnMendesServerProxy.makePostRequest();
+//        String postJsonSampleShawnMendesServer = sampleShawnMendesServerProxy.makePostRequest();
         String getJsonSampleShawnMendesServer = sampleShawnMendesServerProxy.makeGetRequest();
-        if (postJsonSampleShawnMendesServer != null) {
-            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(postJsonSampleShawnMendesServer);
-            System.out.println(sampleShawnMendesResponse);
-        }
+//        if (postJsonSampleShawnMendesServer != null) {
+//            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(postJsonSampleShawnMendesServer);
+//            System.out.println(sampleShawnMendesResponse);
+//        }
         if (getJsonSampleShawnMendesServer != null) {
             SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(getJsonSampleShawnMendesServer);
+            System.out.println(sampleShawnMendesResponse);
+        }
+        sampleShawnMendesServerProxy.makeDeleteRequest("0");
+        String getJsonSampleShawnMendesServer2 = sampleShawnMendesServerProxy.makeGetRequest();
+        if (getJsonSampleShawnMendesServer2 != null) {
+            SampleServerShawnMendesResponse sampleShawnMendesResponse = mapJsonToSampleShawnMendesResponse(getJsonSampleShawnMendesServer2);
             System.out.println(sampleShawnMendesResponse);
         }
     }
