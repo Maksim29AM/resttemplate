@@ -26,7 +26,7 @@ public class SampleShawnMendesServerProxy {
     @Value("${sample-shawn-mendes-server.service.port}")
     int port;
 
-    public String makeRequest() {
+    public String makePostRequest() {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
@@ -43,6 +43,30 @@ public class SampleShawnMendesServerProxy {
                     builder.build().toUri(),
                     HttpMethod.POST,
                     entity,
+                    String.class
+            );
+            return response.getBody();
+        } catch (RestClientResponseException exceptions) {
+            log.error("{} {}", exceptions.getStatusText(), exceptions.getStatusCode().value());
+        } catch (RestClientException exception) {
+            log.error(exception.getMessage());
+        }
+        return null;
+    }
+
+    public String makeGetRequest() {
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .port(port)
+                .host(url)
+                .path("/shawn/songs");
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    builder.build().toUri(),
+                    HttpMethod.GET,
+                    null,
                     String.class
             );
             return response.getBody();
