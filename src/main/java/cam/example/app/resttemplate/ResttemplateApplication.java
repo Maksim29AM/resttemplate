@@ -1,5 +1,9 @@
 package cam.example.app.resttemplate;
 
+import cam.example.app.resttemplate.proxy.joke.JokeProxy;
+import cam.example.app.resttemplate.proxy.joke.JokeResponse;
+import cam.example.app.resttemplate.proxy.sampleshawnmendes.SampleServerShawnMendesResponse;
+import cam.example.app.resttemplate.proxy.sampleshawnmendes.SampleShawnMendesServerProxy;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package cam.example.app.resttemplate;
+package cam.example.app.resttemplate.proxy.sampleshawnmendes;
 
 import java.util.List;
 

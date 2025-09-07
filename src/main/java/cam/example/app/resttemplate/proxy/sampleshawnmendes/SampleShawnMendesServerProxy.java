@@ -1,4 +1,4 @@
-package cam.example.app.resttemplate;
+package cam.example.app.resttemplate.proxy.sampleshawnmendes;
 
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

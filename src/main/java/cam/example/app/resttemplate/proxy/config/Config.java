@@ -1,4 +1,4 @@
-package cam.example.app.resttemplate;
+package cam.example.app.resttemplate.proxy.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
