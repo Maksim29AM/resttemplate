@@ -24,12 +24,12 @@ public class ResttemplateApplication {
     @EventListener(ApplicationStartedEvent.class)
     public void run() throws JsonProcessingException {
         String json = jokeProxy.makeJokeRequest("any");
-        if (json != null) {
-            JokeResponse jokeResponse = mapJsonToJokeResponse(json);
-            System.out.println("Category: " + jokeResponse.category());
-            String joke = jokeResponse.type().equals("twopart") ? "Setup: " + jokeResponse.setup() + "\nDelivery: " + jokeResponse.delivery() : "Joke: " + jokeResponse.joke();
-            System.out.println(joke);
-        }
+//        if (json != null) {
+//            JokeResponse jokeResponse = mapJsonToJokeResponse(json);
+//            System.out.println("Category: " + jokeResponse.category());
+//            String joke = jokeResponse.type().equals("twopart") ? "Setup: " + jokeResponse.setup() + "\nDelivery: " + jokeResponse.delivery() : "Joke: " + jokeResponse.joke();
+//            System.out.println(joke);
+//        }
 
         String jsonSampleShawnMendesServer = sampleShawnMendesServerProxy.makeRequest();
         if (jsonSampleShawnMendesServer != null) {

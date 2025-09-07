@@ -3,8 +3,7 @@ package cam.example.app.resttemplate;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
@@ -35,11 +34,15 @@ public class SampleShawnMendesServerProxy {
                 .host(url)
                 .path("/shawn/songs");
 
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("requestId", "qwe");
+        SampleShawnMendesRequest requestBody = new SampleShawnMendesRequest("MySong!@!@!!");
+        HttpEntity<SampleShawnMendesRequest> entity = new HttpEntity<>(requestBody, httpHeaders);
         try {
             ResponseEntity<String> response = restTemplate.exchange(
                     builder.build().toUri(),
-                    HttpMethod.GET,
-                    null,
+                    HttpMethod.POST,
+                    entity,
                     String.class
             );
             return response.getBody();
